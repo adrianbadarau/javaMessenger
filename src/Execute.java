@@ -1,4 +1,5 @@
 import controllers.*;
+import server.MyServer;
 import views.*;
 
 /**
@@ -10,5 +11,8 @@ public class Execute {
         MainWindowController.run();
         ContentController.run();
         HeaderController.run();
+        MyServer server = new MyServer();
+        Thread thread = new Thread(server);
+        thread.start();
     }
 }
