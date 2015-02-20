@@ -44,6 +44,7 @@ public class MyServer implements Runnable {
     @Override
     public void run() {
         getMachineIP();
+        Content.showIP.setText(machineIP.getHostAddress()+":"+port);
         try(
                 ServerSocket serverSocket = new ServerSocket(port,30,machineIP);
                 Socket con = serverSocket.accept();
@@ -51,7 +52,6 @@ public class MyServer implements Runnable {
                 BufferedOutputStream output = new BufferedOutputStream(con.getOutputStream())
         ) {
             String address = serverSocket.getInetAddress()+":"+port;
-            Content.showIP.setText(address);
             String message = input.readLine();
             while(message!=null&&message!=""){
                 System.out.println(message);
