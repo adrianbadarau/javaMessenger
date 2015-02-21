@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="JavaMessenger:ear exploded">
-    <output-path>$PROJECT_DIR$/out/artifacts/JavaMessenger_ear_exploded</output-path>
-    <root id="archive" name="JavaMessenger_ear exploded.jar">
+  <artifact type="jar" name="JavaMessenger">
+    <output-path>$PROJECT_DIR$/out/artifacts/JavaMessenger</output-path>
+    <root id="archive" name="JavaMessenger.jar">
       <element id="javaee-facet-resources" facet="JavaMessenger/javaeeApplication/javaEEApplication" />
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
@@ -10,6 +10,7 @@
       <element id="library" level="project" name="javax.json.processing-1.0" />
       <element id="library" level="project" name="derby-10.11.1.1" />
       <element id="library" level="project" name="derbyclient-10.11.1.1" />
+      <element id="dir-copy" path="$PROJECT_DIR$/LocalDB" />
     </root>
   </artifact>
 </component>

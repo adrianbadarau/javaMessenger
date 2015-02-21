@@ -28,6 +28,12 @@ public class HeaderController {
                 Content.bodyLayout.show(Content.body,"compose");
             }
         });
+        Header.contactsIndexB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Content.bodyLayout.show(Content.body,"contactsIndex");
+            }
+        });
     }
     
     public static void run(){
