@@ -13,7 +13,7 @@ public class MainWindow {
         homePage = new Frame();
         homePage.add(Header.createHeader(), BorderLayout.PAGE_START);
         homePage.add(Content.createContent(), BorderLayout.CENTER);
-        homePage.setSize(500, 500);
+        homePage.setSize(550, 550);
         homePage.setVisible(true);
     }
 }

@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="ear" name="unnamed">
+    <output-path>$PROJECT_DIR$/out/artifacts/unnamed</output-path>
+    <root id="archive" name="unnamed.ear">
+      <element id="module-output" name="JavaMessenger" />
+      <element id="directory" name="lib">
+        <element id="library" level="project" name="derbyclient-10.11.1.1" />
+        <element id="library" level="project" name="derby-10.11.1.1" />
+        <element id="library" level="project" name="javax.json.processing-1.0" />
+      </element>
+      <element id="javaee-facet-resources" facet="JavaMessenger/javaeeApplication/javaEEApplication" />
+    </root>
+  </artifact>
+</component>

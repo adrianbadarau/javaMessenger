@@ -1,12 +1,14 @@
 package controllers;
 
 import models.Contact;
+import models.SentMessage;
 import server.DataBaseConnection;
 import views.Content;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
 
@@ -33,10 +35,14 @@ public class ContentController {
                 data.put("CONTACT_ID",""+contactId);
                 data.put("SENT_DATE", DataBaseConnection.generateTimeStamp());
                 try {
-                    System.out.println(DataBaseConnection.insert("APP.SENT_MESSAGES", data));
-                } catch (SQLException e1) {
+//                    System.out.println(DataBaseConnection.insert("APP.SENT_MESSAGES", data));
+                    SentMessage sentMessage = new SentMessage(Content.messageTitle.getText(),Content.messageBody.getText(),contactId,DataBaseConnection.generateTimeStampT());
+                    sentMessage.save();
+                    sentMessage.send();
+                } catch (SQLException | IOException e1) {
                     e1.printStackTrace();
                 }
+
             }
         });
 

@@ -17,7 +17,7 @@
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="javax.json.processing-1.0" level="project" />
-    <orderEntry type="library" name="derby-10.11.1.1" level="project" />
-    <orderEntry type="library" name="derbyclient-10.11.1.1" level="project" />
+    <orderEntry type="library" name="derby-10.11.1.1" level="application" />
+    <orderEntry type="library" name="derbyclient-10.11.1.1" level="application" />
   </component>
 </module>

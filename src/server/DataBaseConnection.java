@@ -80,4 +80,8 @@ public class DataBaseConnection implements Runnable{
         String timeStamp = new Timestamp(now.getTime()).toString();
         return timeStamp;
     }
+    public static Timestamp generateTimeStampT(){
+        Date now = new Date();
+        return new Timestamp(now.getTime());
+    }
 }

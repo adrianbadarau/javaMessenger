@@ -62,8 +62,8 @@ public class Contact {
         }
         return all;
     }
-    public Contact find(int id) throws SQLException {
-        ResultSet getContact = DataBaseConnection.find(table,this.id);
+    public static Contact find(int id) throws SQLException {
+        ResultSet getContact = DataBaseConnection.find(table,id);
         Contact contact=null;
         while (getContact.next()){
             contact = new Contact(getContact.getString("NAME"),getContact.getString("ADDRESS"),getContact.getInt("ID"));

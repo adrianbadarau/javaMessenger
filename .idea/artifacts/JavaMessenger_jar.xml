@@ -4,8 +4,9 @@
     <root id="archive" name="JavaMessenger.jar">
       <element id="module-output" name="JavaMessenger" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/javax.json.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$APPLICATION_CONFIG_DIR$/jdbc-drivers/derbyclient-10.11.1.1.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$APPLICATION_CONFIG_DIR$/jdbc-drivers/derby-10.11.1.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$APPLICATION_CONFIG_DIR$/jdbc-drivers/derbyclient-10.11.1.1.jar" path-in-jar="/" />
+      <element id="dir-copy" path="$PROJECT_DIR$/LocalDB" />
     </root>
   </artifact>
 </component>

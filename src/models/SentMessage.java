@@ -1,7 +1,9 @@
 package models;
 
 import server.DataBaseConnection;
+import server.MyServer;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -17,10 +19,11 @@ public class SentMessage {
     public int contact_id,id;
     public Timestamp sent_date;
 
-    public SentMessage(String title, String body, int contact_id ) {
+    public SentMessage(String title, String body, int contact_id,Timestamp sent_date ) {
         this.title = title;
         this.body = body;
         this.contact_id = contact_id;
+        this.sent_date = sent_date;
     }
 
     public SentMessage(String title, String body, int contact_id, int id, Timestamp sent_date) {
@@ -81,6 +84,20 @@ public class SentMessage {
         attr.put("CONTACT_ID", String.valueOf((this.contact_id)));
         attr.put("SENT_DATE",DataBaseConnection.generateTimeStamp());
         return DataBaseConnection.update(table,attr,this.id);
+    }
+
+    public boolean send() throws SQLException, IOException {
+        String address = Contact.find(this.contact_id).address;
+        StringBuilder message = new StringBuilder();
+        message.append("TITLE:=");
+        message.append(this.title);
+        message.append("BODY:=");
+        message.append(this.body);
+        message.append("FROM:=");
+        message.append(MyServer.machineIP);
+        String response = null;
+        response = MyServer.sendMessage(address,message.toString());
+        return response != null;
     }
 
 }
