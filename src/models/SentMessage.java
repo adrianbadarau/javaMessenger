@@ -89,12 +89,12 @@ public class SentMessage {
     public boolean send() throws SQLException, IOException {
         String address = Contact.find(this.contact_id).address;
         StringBuilder message = new StringBuilder();
-        message.append("TITLE:=");
-        message.append(this.title);
-        message.append("BODY:=");
-        message.append(this.body);
-        message.append("FROM:=");
-        message.append(MyServer.machineIP);
+        message.append("{TITLE:=");
+        message.append(this.title+"}");
+        message.append("{BODY:=");
+        message.append(this.body+"}");
+        message.append("{FROM:=");
+        message.append(MyServer.machineIP+"}");
         String response = null;
         response = MyServer.sendMessage(address,message.toString());
         return response != null;

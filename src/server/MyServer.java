@@ -64,14 +64,16 @@ public class MyServer implements Runnable {
         Socket conection = new Socket(address,port);
         BufferedReader input = new BufferedReader(new InputStreamReader(conection.getInputStream()));
         BufferedOutputStream out = new BufferedOutputStream(conection.getOutputStream());
-        out.write("POST message HTTP/1.1\r\n\r\n".getBytes());
+        out.write("POST message HTTP/1.1 ".getBytes());
         out.write(content.getBytes());
         out.flush();
         String response = null;
-        String line;
-        while ((line=input.readLine())!=null){
+        String line=input.readLine();
+        while (line!=null && !line.equals("")){
             response+=line;
+            line=input.readLine();
         }
+        System.out.print(response);
         return  response;
     }
     
