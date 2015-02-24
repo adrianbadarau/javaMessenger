@@ -86,7 +86,7 @@ public class SentMessage {
         return DataBaseConnection.update(table,attr,this.id);
     }
 
-    public boolean send() throws SQLException, IOException {
+    public synchronized boolean send() throws SQLException, IOException {
         String address = Contact.find(this.contact_id).address;
         StringBuilder message = new StringBuilder();
         message.append("{TITLE:=");

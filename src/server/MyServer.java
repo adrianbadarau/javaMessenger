@@ -14,7 +14,7 @@ import java.util.Objects;
 /**
  * Created by adrian on 19.02.2015.
  */
-public class MyServer implements Runnable {
+public class MyServer {
     public static InetAddress machineIP;
     public static int port = 10101;
     public HashMap<Integer,String> errorCodes = new HashMap<>();
@@ -78,7 +78,6 @@ public class MyServer implements Runnable {
     }
     
 
-    @Override
     public void run() {
         getMachineIP();
         setErrorCodes();
@@ -91,25 +90,16 @@ public class MyServer implements Runnable {
                     BufferedOutputStream output = new BufferedOutputStream(con.getOutputStream());
             ) {
                 String address = serverSocket.getInetAddress() + ":" + port;
-                readMessage(input);
-                response(output);
-
+                String message = input.readLine();
+                while (message != null) {
+                    System.out.println(message);
+                    message = input.readLine();
+                }
+                output.write(createHeader(200).getBytes());
+                output.write("HELLO WORLD".getBytes());
             } catch (IOException e) {
                 Content.showMessage(e.getMessage());
             }
         }
-    }
-
-    public synchronized String readMessage(BufferedReader input) throws IOException {
-        String message = input.readLine();
-        while (message != null && !message.equals("")) {
-            System.out.println(message);
-            message = input.readLine();
-        }
-        return message;
-    }
-    public synchronized void response(BufferedOutputStream output) throws IOException {
-        output.write(createHeader(200).getBytes());
-        output.write("HELLO WORLD".getBytes());
     }
 }

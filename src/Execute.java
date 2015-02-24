@@ -19,8 +19,7 @@ public class Execute {
         ContentController.run();
         HeaderController.run();
         server = new MyServer();
-        srvThread = new Thread(server);
-        srvThread.start();
+        srvThread.run();
         con = new DataBaseConnection();
         dbThread = new Thread(con);
         dbThread.run();
