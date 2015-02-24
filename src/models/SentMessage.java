@@ -2,6 +2,7 @@ package models;
 
 import server.DataBaseConnection;
 import server.MyServer;
+import views.Content;
 
 import java.io.IOException;
 import java.sql.ResultSet;
@@ -94,7 +95,7 @@ public class SentMessage {
         message.append("{BODY:=");
         message.append(this.body+"}");
         message.append("{FROM:=");
-        message.append(MyServer.machineIP+"}");
+        message.append(Content.showIP.getText()+"}");
         String response = null;
         response = MyServer.sendMessage(address,message.toString());
         return response != null;

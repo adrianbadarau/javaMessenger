@@ -15,7 +15,7 @@ import java.util.Objects;
  * Created by adrian on 19.02.2015.
  */
 public class MyServer {
-    public static InetAddress machineIP;
+    public InetAddress machineIP;
     public static int port = 10101;
     public HashMap<Integer,String> errorCodes = new HashMap<>();
 
@@ -25,10 +25,9 @@ public class MyServer {
         this.errorCodes.put(500,"500 Internal Server Error");
     }
 
-    public static void getMachineIP(){
+    public void getMachineIP() throws SocketException {
         String ip = "";
         InetAddress addr = null;
-        try {
             Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
             while (interfaces.hasMoreElements()) {
                 NetworkInterface iface = interfaces.nextElement();
@@ -43,9 +42,6 @@ public class MyServer {
                 }
                 machineIP = addr;
             }
-        } catch (SocketException e) {
-            throw new RuntimeException(e);
-        }
 
     }
 
@@ -78,10 +74,10 @@ public class MyServer {
     }
     
 
-    public void run() {
-        getMachineIP();
+    public void run() throws SocketException {
+        this.getMachineIP();
         setErrorCodes();
-        Content.showIP.setText(machineIP.getHostAddress()+":"+port);
+        Content.showIP.setText(this.machineIP.getHostAddress()+":"+port);
         while(true) {
             try (
                     ServerSocket serverSocket = new ServerSocket(port, 30, machineIP);

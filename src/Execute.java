@@ -3,6 +3,7 @@ import server.DataBaseConnection;
 import server.MyServer;
 import views.*;
 
+import java.net.SocketException;
 import java.sql.SQLException;
 import java.util.HashMap;
 
@@ -19,7 +20,11 @@ public class Execute {
         ContentController.run();
         HeaderController.run();
         server = new MyServer();
-        srvThread.run();
+        try {
+            server.run();
+        } catch (SocketException e) {
+            e.printStackTrace();
+        }
         con = new DataBaseConnection();
         dbThread = new Thread(con);
         dbThread.run();
