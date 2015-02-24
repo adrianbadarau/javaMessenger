@@ -91,16 +91,25 @@ public class MyServer implements Runnable {
                     BufferedOutputStream output = new BufferedOutputStream(con.getOutputStream());
             ) {
                 String address = serverSocket.getInetAddress() + ":" + port;
-                String message = input.readLine();
-                while (message != null && !message.equals("")) {
-                    System.out.println(message);
-                    message = input.readLine();
-                }
-                output.write(createHeader(200).getBytes());
-                output.write("HELLO WORLD".getBytes());
+                readMessage(input);
+                response(output);
+
             } catch (IOException e) {
                 Content.showMessage(e.getMessage());
             }
         }
+    }
+
+    public synchronized String readMessage(BufferedReader input) throws IOException {
+        String message = input.readLine();
+        while (message != null && !message.equals("")) {
+            System.out.println(message);
+            message = input.readLine();
+        }
+        return message;
+    }
+    public synchronized void response(BufferedOutputStream output) throws IOException {
+        output.write(createHeader(200).getBytes());
+        output.write("HELLO WORLD".getBytes());
     }
 }
