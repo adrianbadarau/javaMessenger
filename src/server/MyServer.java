@@ -56,18 +56,24 @@ public class MyServer {
         return headerStringBuilder.toString();
     }
 
-    public static String sendMessage(String address, String content) throws IOException {
-        Socket conection = new Socket(address,port);
-        BufferedReader input = new BufferedReader(new InputStreamReader(conection.getInputStream()));
-        BufferedOutputStream out = new BufferedOutputStream(conection.getOutputStream());
-        out.write("POST message HTTP/1.1 ".getBytes());
-        out.write(content.getBytes());
-        out.flush();
+    public static String sendMessage(String address, String content) {
         String response = null;
-        String line=input.readLine();
-        while (line!=null && !line.equals("")){
-            response+=line;
-            line=input.readLine();
+        try(
+                Socket conection = new Socket(address,port);
+                BufferedReader input = new BufferedReader(new InputStreamReader(conection.getInputStream()));
+                BufferedOutputStream out = new BufferedOutputStream(conection.getOutputStream());
+                ) {
+
+            out.write("POST message HTTP/1.1 ".getBytes());
+            out.write(content.getBytes());
+            out.flush();
+            String line;
+            input.ready();
+            while ((line = input.readLine()) != null) {
+                response += line;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
         System.out.print(response);
         return  response;
@@ -87,12 +93,14 @@ public class MyServer {
             ) {
                 String address = serverSocket.getInetAddress() + ":" + port;
                 String message = input.readLine();
-                while (message != null) {
+                while ((message != null)&&(!message.equals(""))) {
                     System.out.println(message);
                     message = input.readLine();
                 }
                 output.write(createHeader(200).getBytes());
                 output.write("HELLO WORLD".getBytes());
+                output.flush();
+                output.close();
             } catch (IOException e) {
                 Content.showMessage(e.getMessage());
             }
