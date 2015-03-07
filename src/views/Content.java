@@ -1,6 +1,7 @@
 package views;
 
 import models.Contact;
+import models.ReceivedMessage;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -35,15 +36,20 @@ public class Content {
         inboxP = new Panel();
         LayoutManager inboxLayout = new GridLayout(0,1,10,10);
         inboxP.setLayout(inboxLayout);
-        for(int i=0;i<10;i++){
-            final Button message = new Button("Message"+i+"Title");
-            inboxP.add(message);
-            message.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    showMessage("hello world!"+message.getLabel());
-                }
-            });
+        try {
+            ArrayList<ReceivedMessage> allMessages = ReceivedMessage.all();
+            for (ReceivedMessage msg : allMessages){
+                final Button message = new Button(msg.title+" from: "+msg.senderIP);
+                inboxP.add(message);
+                message.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        showMessage(msg.toString());
+                    }
+                });
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         contactsP = new Panel();
         newUserNameL = new Label("Numele Contactului");

@@ -1,12 +1,17 @@
 package server;
 
+import models.ReceivedMessage;
 import views.Content;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.*;
+import java.sql.SQLException;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Objects;
@@ -70,6 +75,12 @@ public class MyServer {
             line = input.readLine();
             while ((line != null)&&(!line.equals(""))) {
                 System.out.println(line);
+                if(line.equals("Success")){
+                    Content.showMessage("Message has been sent");
+                    Content.showConnection.setText("Idle");
+                }else if(line.equals("Error")){
+                    Content.showMessage("Error");
+                }
                 line = input.readLine();
             }
         }catch (Exception e){
@@ -93,19 +104,32 @@ public class MyServer {
             ) {
                 String address = serverSocket.getInetAddress() + ":" + port;
                 input.ready();
+                ReceivedMessage got = new ReceivedMessage();
                 String message = input.readLine();
                 while ((message != null)&&(!message.equals(""))) {
                     System.out.println(message);
 //                    regex match ([A-Z]+):=([a-zA-Z0-9\.\:]+)
                     String[] received = message.split(":=");
-                    for(int i=0;i<received.length;i++){
-                        System.out.println(received[i]);
-                    }
+                    got.setAttribute(received[0],received[1]);
                     message = input.readLine();
                 }
-                output.write("HELLO WORLD".concat("\n\n").getBytes());
+                if(got.save()) {
+                    output.write("Success".concat("\n\n").getBytes());
+                    Content.showMessage("You got a message from: "+got.senderIP);
+                    final Button msg = new Button(got.title+" from: "+got.senderIP);
+                    Content.inboxP.add(msg);
+                    msg.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            Content.showMessage(got.toString());
+                        }
+                    });
+
+                }else{
+                    output.write("Error".concat("\n\n").getBytes());
+                }
                 output.flush();
-            } catch (IOException e) {
+            } catch (IOException | SQLException e) {
                 Content.showMessage(e.getMessage());
             }
         }

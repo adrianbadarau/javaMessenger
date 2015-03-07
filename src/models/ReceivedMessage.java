@@ -17,10 +17,29 @@ public class ReceivedMessage {
     public int id;
     public Timestamp receivedDate;
 
+    public ReceivedMessage() {
+        this.receivedDate = DataBaseConnection.generateTimeStampT();
+    }
+
+    public void setAttribute(String attrName, String attrValue){
+        switch (attrName){
+            case "TITLE":
+                this.title = attrValue;
+                break;
+            case "BODY":
+                this.body = attrValue;
+                break;
+            case "FROM":
+                this.senderIP = attrValue;
+                break;
+        }
+    }
+
     public ReceivedMessage(String title, String body, String senderIP, int id, Timestamp receivedDate) {
         this.title = title;
         this.body = body;
         this.senderIP = senderIP;
+
         this.id = id;
         this.receivedDate = receivedDate;
     }
@@ -40,7 +59,20 @@ public class ReceivedMessage {
         attr.put("BODY",this.body);
         attr.put("SENDER_IP",this.senderIP);
         attr.put("RECEIVED_DATE",this.receivedDate.toString());
-        attr.put("ID",String.valueOf(this.id));
         return  !DataBaseConnection.insert(table,attr);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder message = new StringBuilder();
+        message.append("From: ");
+        message.append(this.senderIP).append("\n");
+        message.append("Title: ");
+        message.append(this.title).append("\n");
+        message.append("Message: ");
+        message.append(this.body).append("\n");
+        message.append("Date: ");
+        message.append(this.receivedDate);
+        return message.toString();
     }
 }
