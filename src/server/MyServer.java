@@ -96,9 +96,14 @@ public class MyServer {
                 String message = input.readLine();
                 while ((message != null)&&(!message.equals(""))) {
                     System.out.println(message);
+//                    regex match ([A-Z]+):=([a-zA-Z0-9\.\:]+)
+                    String[] received = message.split(":=");
+                    for(int i=0;i<received.length;i++){
+                        System.out.println(received[i]);
+                    }
                     message = input.readLine();
                 }
-                output.write("HELLO WORLD \n\n".getBytes());
+                output.write("HELLO WORLD".concat("\n\n").getBytes());
                 output.flush();
             } catch (IOException e) {
                 Content.showMessage(e.getMessage());
