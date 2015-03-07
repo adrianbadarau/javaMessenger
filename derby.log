@@ -1,7 +1,7 @@
 ----------------------------------------------------------------
-Fri Feb 27 20:16:34 EET 2015:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.1 - (1616546): instance a816c00e-014b-cc41-17ba-000006b64cb8 
-on database directory /Users/adib/IdeaProjects/javaMessenger/LocalDB with class loader sun.misc.Launcher$AppClassLoader@58644d46 
+Sat Mar 07 09:20:58 EET 2015:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.1 - (1616546): instance a816c00e-014b-f31b-c4eb-000006b5a168 
+on database directory /Users/adib/IdeaProjects/javaMessenger/LocalDB with class loader sun.misc.Launcher$AppClassLoader@511d50c0 
 Loaded from file:/Users/adib/Library/Preferences/IntelliJIdea14/jdbc-drivers/derby-10.11.1.1.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_31-b13

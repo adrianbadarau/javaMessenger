@@ -63,14 +63,14 @@ public class MyServer {
                 BufferedReader input = new BufferedReader(new InputStreamReader(conection.getInputStream()));
                 BufferedOutputStream out = new BufferedOutputStream(conection.getOutputStream());
                 ) {
-
-            out.write("POST message HTTP/1.1 ".getBytes());
-            out.write(content.getBytes());
+            out.write(content.concat("\n\n").getBytes());
             out.flush();
             String line;
             input.ready();
-            while ((line = input.readLine()) != null) {
-                response += line;
+            line = input.readLine();
+            while ((line != null)&&(!line.equals(""))) {
+                System.out.println(line);
+                line = input.readLine();
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -92,15 +92,14 @@ public class MyServer {
                     BufferedOutputStream output = new BufferedOutputStream(con.getOutputStream());
             ) {
                 String address = serverSocket.getInetAddress() + ":" + port;
+                input.ready();
                 String message = input.readLine();
                 while ((message != null)&&(!message.equals(""))) {
                     System.out.println(message);
                     message = input.readLine();
                 }
-                output.write(createHeader(200).getBytes());
-                output.write("HELLO WORLD".getBytes());
+                output.write("HELLO WORLD \n\n".getBytes());
                 output.flush();
-                output.close();
             } catch (IOException e) {
                 Content.showMessage(e.getMessage());
             }
